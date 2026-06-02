@@ -871,7 +871,286 @@ footer strong{color:#fff;}
         <li>f&prime;(0) = &minus;3 &ne; 0 &rarr; <strong>flesso a tangente obliqua</strong> (pendenza &minus;3)</li>
       </ol>
     </div>
-    <div class="graph-wrap">
+        <div class="graph-wrap">
       <h4>&#128202; Concavit&agrave; e convessit&agrave; a confronto</h4>
       <svg viewBox="0 0 440 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;display:block;margin:0 auto">
-        <rect width="440" height="200" fill="#f
+        <rect width="440" height="200" fill="#fafafa"/>
+        <path d="M30,160 Q110,40 200,160" fill="none" stroke="#2e7d32" stroke-width="3"/>
+        <text x="80" y="185" fill="#2e7d32" font-size="12" font-family="sans-serif" font-weight="bold">Concavo (f&prime;&prime; &gt; 0)</text>
+        <text x="55" y="110" fill="#888" font-size="10" font-family="sans-serif">&ldquo;sorriso&rdquo;</text>
+        <line x1="30" y1="160" x2="200" y2="160" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+        <path d="M240,50 Q330,170 420,50" fill="none" stroke="#e53935" stroke-width="3"/>
+        <text x="285" y="185" fill="#e53935" font-size="12" font-family="sans-serif" font-weight="bold">Convesso (f&prime;&prime; &lt; 0)</text>
+        <text x="298" y="95" fill="#888" font-size="10" font-family="sans-serif">&ldquo;cappello&rdquo;</text>
+        <line x1="240" y1="50" x2="420" y2="50" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- STUDIO COMPLETO -->
+  <div class="concept-card">
+    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Studio Completo &mdash; Funzione Razionale Fratta</h3>
+    <p>Studiamo completamente <strong>f(x) = (x&#178;&minus;1) / (x&#178;&minus;4)</strong></p>
+    <ul class="steps">
+      <li><span class="step-num">1</span><strong>Dominio:</strong> x&#178;&minus;4 &ne; 0 &rarr; x &ne; &plusmn;2. Dominio: &#8477; \ {&minus;2, 2}</li>
+      <li><span class="step-num">2</span><strong>Parit&agrave;:</strong> f(&minus;x) = f(x) &rarr; funzione <strong>pari</strong> (simmetrica rispetto all&rsquo;asse y)</li>
+      <li><span class="step-num">3</span><strong>Intersezioni:</strong> asse x: x=&plusmn;1; asse y: f(0) = 1/4</li>
+      <li><span class="step-num">4</span><strong>Asintoti verticali:</strong> x = &minus;2 e x = 2</li>
+      <li><span class="step-num">5</span><strong>Asintoto orizzontale:</strong> lim<sub>x&rarr;&infin;</sub> = 1 &rarr; y = 1</li>
+      <li><span class="step-num">6</span><strong>f&prime;(x) = &minus;6x / (x&#178;&minus;4)&#178;:</strong> si annulla in x=0. Cambio segno: + per x&lt;0, &minus; per x&gt;0 &rarr; <strong>massimo relativo in (0, 1/4)</strong></li>
+      <li><span class="step-num">7</span><strong>f&prime;&prime;(x):</strong> si calcola e si studia il segno per individuare i flessi</li>
+      <li><span class="step-num">8</span><strong>Grafico:</strong> curva pari, simmetrica, con asintoti x=&plusmn;2, y=1 e massimo in (0, 1/4)</li>
+    </ul>
+    <div class="note"><strong>Funzione irrazionale:</strong> per studiare f(x) = &#8730;(x&#178;&minus;4) si impone x&#178;&minus;4 &ge; 0, cio&egrave; x &le; &minus;2 oppure x &ge; 2. La derivata si calcola con la regola della funzione composta: f&prime;(x) = x / &#8730;(x&#178;&minus;4).</div>
+  </div>
+
+</div><!-- fine panel-2 -->
+
+<!-- ====== TAB 4: CALCOLO INTEGRALE ====== -->
+<div class="tab-panel" id="panel-3">
+
+  <div class="unit-header">
+    <div class="unit-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M3 20 L7 10 Q12 2 17 10 L21 20"/><path d="M3 20 L21 20" stroke-width="1.5"/></svg>
+    </div>
+    <div>
+      <h2>Unit&agrave; 4 &mdash; Calcolo Integrale</h2>
+      <p>Integrale indefinito e definito, aree, propriet&agrave;, valor medio</p>
+    </div>
+  </div>
+
+  <div class="topics-grid">
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Introduzione al concetto di integrale</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Legame tra integrale e derivata</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Legame tra integrale e calcolo dell&rsquo;area</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Propriet&agrave; dell&rsquo;integrale</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Valor medio</div>
+  </div>
+
+  <!-- INTRODUZIONE -->
+  <div class="concept-card">
+    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M12 2 Q6 6 6 12 Q6 18 12 22 Q18 18 18 12 Q18 6 12 2"/></svg>Introduzione al Concetto di Integrale</h3>
+    <p>L&rsquo;<strong>integrale</strong> nasce dal problema di calcolare l&rsquo;area di una regione con bordo curvilineo. L&rsquo;idea &egrave; di approssimare quell&rsquo;area con tanti piccoli rettangoli di base &Delta;x e altezza f(x<sub>i</sub>), poi far tendere la base a zero: in quel limite la somma diventa esatta.</p>
+    <div class="graph-wrap">
+      <h4>&#128202; L&rsquo;idea dell&rsquo;integrale: somma di rettangoli &rarr; area esatta</h4>
+      <svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;display:block;margin:0 auto">
+        <rect width="440" height="210" fill="#fafafa"/>
+        <defs><marker id="arrI1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#aaa"/></marker></defs>
+        <line x1="30" y1="185" x2="420" y2="185" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrI1)"/>
+        <line x1="50" y1="15" x2="50" y2="195" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrI1)"/>
+        <rect x="50" y="180" width="60" height="5" fill="rgba(46,125,50,0.25)" stroke="#2e7d32" stroke-width="1"/>
+        <rect x="110" y="168" width="60" height="17" fill="rgba(46,125,50,0.25)" stroke="#2e7d32" stroke-width="1"/>
+        <rect x="170" y="148" width="60" height="37" fill="rgba(46,125,50,0.25)" stroke="#2e7d32" stroke-width="1"/>
+        <rect x="230" y="118" width="60" height="67" fill="rgba(46,125,50,0.25)" stroke="#2e7d32" stroke-width="1"/>
+        <rect x="290" y="78" width="60" height="107" fill="rgba(46,125,50,0.25)" stroke="#2e7d32" stroke-width="1"/>
+        <rect x="350" y="28" width="50" height="157" fill="rgba(46,125,50,0.25)" stroke="#2e7d32" stroke-width="1"/>
+        <polyline fill="none" stroke="#2e7d32" stroke-width="2.5" points="50,185 80,183 110,178 140,170 170,158 200,142 230,122 260,98 290,70 320,38 345,14"/>
+        <text x="50" y="205" fill="#2e7d32" font-size="10" font-family="sans-serif">Con &Delta;x &rarr; 0 la somma dei rettangoli converge all&rsquo;area esatta.</text>
+        <text x="418" y="193" fill="#aaa" font-size="11" font-family="sans-serif">x</text>
+        <text x="54" y="13" fill="#aaa" font-size="11" font-family="sans-serif">y</text>
+      </svg>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="formula-label">Integrale Indefinito</div>
+        <div class="formula">&int; f(x) dx = F(x) + C</div>
+        <p style="font-size:0.88rem;color:#555;margin-top:6px">Restituisce la <em>famiglia</em> di tutte le primitive. C &egrave; la costante arbitraria.</p>
+      </div>
+      <div>
+        <div class="formula-label">Integrale Definito</div>
+        <div class="formula">&int;<sub>a</sub><sup>b</sup> f(x) dx</div>
+        <p style="font-size:0.88rem;color:#555;margin-top:6px">Restituisce un <em>numero reale</em>: l&rsquo;area con segno tra f(x) e l&rsquo;asse x in [a, b].</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGAME DERIVATA -->
+  <div class="concept-card">
+    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Legame tra Integrale e Derivata &mdash; Teorema Fondamentale</h3>
+    <p>Derivazione e integrazione sono operazioni <strong>inverse</strong>. Il Teorema Fondamentale del Calcolo (Newton &amp; Leibniz, XVII sec.) stabilisce il legame preciso:</p>
+    <div class="formula">
+      <div class="formula-label">Teorema Fondamentale del Calcolo Integrale</div>
+      &int;<sub>a</sub><sup>b</sup> f(x) dx = F(b) &minus; F(a) &nbsp;&nbsp; dove F&prime;(x) = f(x)
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;margin:20px 0;padding:20px;background:var(--green-pale);border-radius:10px;">
+      <div style="text-align:center;">
+        <div style="font-size:1.3rem;font-weight:700;color:var(--green-dark);">F(x)</div>
+        <div style="font-size:0.82rem;color:#555;">Primitiva</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div style="font-size:0.8rem;color:#1976d2;font-weight:700;">D[ ] &rarr; deriva</div>
+        <div style="width:90px;height:2px;background:#1976d2;"></div>
+        <div style="font-size:0.8rem;color:#e53935;font-weight:700;">&larr; &int; dx &nbsp; integra</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.3rem;font-weight:700;color:var(--green-dark);">f(x)</div>
+        <div style="font-size:0.82rem;color:#555;">Funzione</div>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">&#9998; Esempio &mdash; &int;<sub>1</sub><sup>4</sup> 2x dx</div>
+      <ol>
+        <li>Primitiva di 2x: F(x) = x&#178;</li>
+        <li>Applico il Teorema: F(4) &minus; F(1) = 16 &minus; 1 = <strong>15</strong></li>
+      </ol>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">&#9998; Esempio &mdash; &int;<sub>0</sub><sup>&pi;/2</sup> cos(x) dx</div>
+      <ol>
+        <li>Primitiva di cos(x): F(x) = sin(x)</li>
+        <li>F(&pi;/2) &minus; F(0) = sin(&pi;/2) &minus; sin(0) = 1 &minus; 0 = <strong>1</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- INTEGRALI IMMEDIATI -->
+  <div class="concept-card">
+    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>Tabella degli Integrali Immediati</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Integrale</th><th>Risultato</th><th>Condizioni</th></tr>
+        <tr><td><code>&int; k dx</code></td><td><code>kx + C</code></td><td>&mdash;</td></tr>
+        <tr><td><code>&int; x<sup>n</sup> dx</code></td><td><code>x<sup>n+1</sup>/(n+1) + C</code></td><td>n &ne; &minus;1</td></tr>
+        <tr><td><code>&int; 1/x dx</code></td><td><code>ln|x| + C</code></td><td>x &ne; 0</td></tr>
+        <tr><td><code>&int; e<sup>x</sup> dx</code></td><td><code>e<sup>x</sup> + C</code></td><td>&mdash;</td></tr>
+        <tr><td><code>&int; sin x dx</code></td><td><code>&minus;cos x + C</code></td><td>&mdash;</td></tr>
+        <tr><td><code>&int; cos x dx</code></td><td><code>sin x + C</code></td><td>&mdash;</td></tr>
+      </table>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">&#9998; &int; (3x&#178; + 2x &minus; 5) dx</div>
+      <ol>
+        <li>&int; 3x&#178; dx = x&sup3;</li>
+        <li>&int; 2x dx = x&#178;</li>
+        <li>&int; &minus;5 dx = &minus;5x</li>
+        <li>Risultato: <strong>x&sup3; + x&#178; &minus; 5x + C</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- CALCOLO AREE -->
+  <div class="concept-card">
+    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9 L9 9 L9 21"/></svg>Calcolo di Aree con Contorno Curvilineo</h3>
+    <p>L&rsquo;integrale definito misura l&rsquo;area <em>con segno</em>: positiva sopra l&rsquo;asse x, negativa sotto. Per l&rsquo;<strong>area geometrica</strong> (sempre positiva) si usa il valore assoluto o si spezza l&rsquo;intervallo.</p>
+    <div class="formula">A = &int;<sub>a</sub><sup>b</sup> |f(x)| dx</div>
+    <div class="alert">Se f(x) cambia segno in [a, b], individua i punti di zero, spezza l&rsquo;intervallo e somma i valori assoluti di ogni pezzo.</div>
+    <div class="graph-wrap">
+      <h4>&#128202; Area sotto f(x) = x&#178; in [0, 2]</h4>
+      <svg viewBox="0 0 440 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;display:block;margin:0 auto">
+        <rect width="440" height="230" fill="#fafafa"/>
+        <defs><marker id="arrI2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#aaa"/></marker></defs>
+        <line x1="30" y1="200" x2="420" y2="200" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrI2)"/>
+        <line x1="70" y1="15" x2="70" y2="210" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrI2)"/>
+        <path d="M70,200 L90,197 L110,190 L130,179 L150,164 L170,145 L190,122 L210,95 L230,64 L240,47 L240,200 Z" fill="rgba(46,125,50,0.2)" stroke="none"/>
+        <polyline fill="none" stroke="#2e7d32" stroke-width="2.5" points="70,200 90,197 110,190 130,179 150,164 170,145 190,122 210,95 230,64 240,47"/>
+        <line x1="240" y1="47" x2="240" y2="200" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <text x="63" y="215" fill="#888" font-size="11" font-family="sans-serif">0</text>
+        <text x="233" y="215" fill="#e53935" font-size="11" font-family="sans-serif">2</text>
+        <text x="100" y="175" fill="#2e7d32" font-size="13" font-family="sans-serif" font-weight="bold">A = 8/3</text>
+        <text x="270" y="80" fill="#555" font-size="12" font-family="monospace">&int;&#178;&#8320; x&#178; dx</text>
+        <text x="270" y="100" fill="#555" font-size="12" font-family="monospace">= [x&sup3;/3]&#178;&#8320;</text>
+        <text x="270" y="120" fill="#555" font-size="12" font-family="monospace">= 8/3 &minus; 0</text>
+        <text x="270" y="142" fill="#2e7d32" font-size="13" font-family="monospace" font-weight="bold">= 8/3 &asymp; 2.67</text>
+        <text x="418" y="208" fill="#aaa" font-size="11" font-family="sans-serif">x</text>
+        <text x="74" y="13" fill="#aaa" font-size="11" font-family="sans-serif">y</text>
+      </svg>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">&#9998; Area tra due curve &mdash; f(x) = x e g(x) = x&#178; in [0, 1]</div>
+      <ol>
+        <li>In [0,1]: x &ge; x&#178;, quindi la retta sta sopra la parabola</li>
+        <li>A = &int;<sub>0</sub><sup>1</sup>(x &minus; x&#178;) dx = [x&#178;/2 &minus; x&sup3;/3]<sub>0</sub><sup>1</sup></li>
+        <li>= 1/2 &minus; 1/3 = <strong>1/6</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- PROPRIETÀ -->
+  <div class="concept-card">
+    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>Propriet&agrave; dell&rsquo;Integrale Definito</h3>
+    <div class="two-col">
+      <div>
+        <div class="formula-label">Linearit&agrave;</div>
+        <div class="formula" style="font-size:0.88rem;">&int;<sub>a</sub><sup>b</sup>[&alpha;f+&beta;g]dx = &alpha;&int;f dx + &beta;&int;g dx</div>
+      </div>
+      <div>
+        <div class="formula-label">Inversione degli estremi</div>
+        <div class="formula" style="font-size:0.88rem;">&int;<sub>a</sub><sup>b</sup>f dx = &minus;&int;<sub>b</sub><sup>a</sup>f dx</div>
+      </div>
+      <div>
+        <div class="formula-label">Additivit&agrave; rispetto all&rsquo;intervallo</div>
+        <div class="formula" style="font-size:0.88rem;">&int;<sub>a</sub><sup>b</sup>f = &int;<sub>a</sub><sup>c</sup>f + &int;<sub>c</sub><sup>b</sup>f</div>
+      </div>
+      <div>
+        <div class="formula-label">Integrale su intervallo nullo</div>
+        <div class="formula" style="font-size:0.88rem;">&int;<sub>a</sub><sup>a</sup>f(x) dx = 0</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:14px;"><strong>Monotonia:</strong> se f(x) &ge; g(x) in [a,b], allora &int;<sub>a</sub><sup>b</sup>f &ge; &int;<sub>a</sub><sup>b</sup>g. In particolare se f(x) &ge; 0 &rarr; l&rsquo;integrale &egrave; non negativo.</div>
+  </div>
+
+  <!-- VALOR MEDIO -->
+  <div class="concept-card">
+    <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"/><circle cx="12" cy="12" r="3"/></svg>Valor Medio di una Funzione</h3>
+    <p>Il <strong>valor medio</strong> f&#772; di f in [a, b] &egrave; il valore costante tale che il rettangolo di base (b&minus;a) e altezza f&#772; abbia la <em>stessa area</em> della regione sotto il grafico di f.</p>
+    <div class="formula">
+      <div class="formula-label">Formula del valor medio</div>
+      f&#772; = 1/(b&minus;a) &middot; &int;<sub>a</sub><sup>b</sup> f(x) dx
+    </div>
+    <div class="graph-wrap">
+      <h4>&#128202; Il rettangolo del valor medio ha la stessa area della regione curvilinea</h4>
+      <svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:440px;display:block;margin:0 auto">
+        <rect width="440" height="210" fill="#fafafa"/>
+        <defs><marker id="arrI3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#aaa"/></marker></defs>
+        <line x1="30" y1="185" x2="420" y2="185" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrI3)"/>
+        <line x1="60" y1="15" x2="60" y2="195" stroke="#ccc" stroke-width="1.5" marker-end="url(#arrI3)"/>
+        <!-- curva -->
+        <path d="M60,185 L90,158 L120,122 L150,94 L180,80 L210,80 L240,96 L270,122 L300,152 L330,176 L340,184" fill="rgba(46,125,50,0.18)" stroke="none"/>
+        <polyline fill="none" stroke="#2e7d32" stroke-width="2.5" points="60,185 90,158 120,122 150,94 180,80 210,80 240,96 270,122 300,152 330,176 340,184"/>
+        <!-- rettangolo valor medio: altezza media ~120 -->
+        <rect x="60" y="120" width="280" height="65" fill="rgba(25,118,210,0.12)" stroke="#1976d2" stroke-width="1.8" stroke-dasharray="6,4"/>
+        <line x1="30" y1="120" x2="380" y2="120" stroke="#1976d2" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="350" y="115" fill="#1976d2" font-size="11" font-family="sans-serif" font-weight="bold">y = f&#772;</text>
+        <text x="53" y="200" fill="#888" font-size="11" font-family="sans-serif">a</text>
+        <text x="333" y="200" fill="#888" font-size="11" font-family="sans-serif">b</text>
+        <text x="160" y="160" fill="#2e7d32" font-size="10" font-family="sans-serif">Area curva = Area rettangolo</text>
+        <text x="418" y="193" fill="#aaa" font-size="11" font-family="sans-serif">x</text>
+        <text x="64" y="13" fill="#aaa" font-size="11" font-family="sans-serif">y</text>
+      </svg>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">&#9998; Valor medio di f(x) = x&#178; in [0, 3]</div>
+      <ol>
+        <li>f&#772; = 1/3 &middot; &int;<sub>0</sub><sup>3</sup> x&#178; dx = 1/3 &middot; [x&sup3;/3]<sub>0</sub><sup>3</sup></li>
+        <li>= 1/3 &middot; 9 = <strong>3</strong></li>
+      </ol>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">&#9998; Valor medio di f(x) = 2x+1 in [1, 4]</div>
+      <ol>
+        <li>f&#772; = 1/3 &middot; &int;<sub>1</sub><sup>4</sup>(2x+1) dx = 1/3 &middot; [x&#178;+x]<sub>1</sub><sup>4</sup></li>
+        <li>= 1/3 &middot; [(16+4)&minus;(1+1)] = 1/3 &middot; 18 = <strong>6</strong></li>
+        <li>Verifica: (f(1)+f(4))/2 = (3+9)/2 = 6 &#10003;</li>
+      </ol>
+    </div>
+  </div>
+
+</div><!-- fine panel-3 -->
+
+</main>
+
+<footer>
+  <p><strong>Pagina realizzata dal Team Digitale dell&rsquo;IIS Gregorio Mendel di Villa Cortese (MI)</strong></p>
+  <p>a supporto della comunit&agrave; scolastica</p>
+  <p style="margin-top:8px;font-size:0.78rem;color:rgba(255,255,255,0.55)">&copy; 2025 IIS Gregorio Mendel &mdash; Via Europa, 2 &mdash; 20020 Villa Cortese (MI) &mdash; Tutti i diritti riservati</p>
+</footer>
+
+<script>
+function showTab(idx){
+  document.querySelectorAll('.tab-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
