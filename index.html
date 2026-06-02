@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matematica – Recupero Debito | IIS Gregorio Mendel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-dark: #1b5e20;
+  --green-primary: #2e7d32;
+  --green-light: #4caf50;
+  --green-pale: #e8f5e9;
+  --green-mid: #c8e6c9;
+  --white: #ffffff;
+  --grey-bg: #f5f5f5;
+  --text-dark: #1a1a1a;
+  --text-mid: #444;
+  --text-muted: #777;
+  --accent: #ff8f00;
+  --accent-light: #fff8e1;
+  --shadow: 0 4px 20px rgba(0,0,0,0.10);
+  --radius: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--grey-bg); color: var(--text-dark); overflow-x: hidden; }
+
+/* ── HEADER ─────────────────────────────────────── */
+header {
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 60%, #388e3c 100%);
+  color: #fff;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 20px);
+}
+.header-inner {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  padding: 56px 32px 48px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+}
+.header-badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 20px;
+  display: inline-block; margin-bottom: 4px;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800; line-height: 1.15;
+  color: #fff;
+}
+header h1 span { color: #a5d6a7; }
+.header-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,0.82);
+  max-width: 620px; line-height: 1.65;
+}
+.header-meta {
+  display: flex; gap: 20px; flex-wrap: wrap; margin-top: 8px;
+}
+.header-meta span {
+  background: rgba(255,255,255,0.12);
+  border-radius: 8px; padding: 6px 14px;
+  font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.9);
+  display: flex; align-items: center; gap: 6px;
+}
+.header-deco {
+  position: absolute; right: -30px; top: -30px;
+  width: 340px; height: 340px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── TABS ────────────────────────────────────────── */
+.tabs-wrap {
+  background: var(--white);
+  border-bottom: 2px solid var(--green-mid);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.tabs-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; overflow-x: auto; padding: 0 16px;
+  scrollbar-width: none;
+}
+.tabs-inner::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;
+  background: none; border: none; cursor: pointer;
+  padding: 16px 22px;
+  font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 8px;
+}
+.tab-btn .tab-num {
+  background: var(--green-mid); color: var(--green-dark);
+  font-size: 0.72rem; font-weight: 700;
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.tab-btn:hover { color: var(--green-primary); }
+.tab-btn.active {
+  color: var(--green-primary);
+  border-bottom-color: var(--green-primary);
+}
+.tab-btn.active .tab-num {
+  background: var(--green-primary); color: #fff;
+}
+
+/* ── CONTENT ─────────────────────────────────────── */
+.main { max-width: 1100px; margin: 0 auto; padding: 40px 24px 60px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── SECTION HEADING ─────────────────────────────── */
+.unit-header {
+  background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-dark) 100%);
+  border-radius: var(--radius); padding: 32px 36px;
+  margin-bottom: 32px; color: #fff;
+  display: flex; align-items: center; gap: 20px;
+}
+.unit-icon {
+  width: 56px; height: 56px; flex-shrink: 0;
+  background: rgba(255,255,255,0.15); border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.unit-header h2 {
+  font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700;
+}
+.unit-header p { font-size: 0.95rem; color: rgba(255,255,255,0.82); margin-top: 4px; }
+
+/* ── TOPICS LIST ─────────────────────────────────── */
+.topics-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;
+  margin-bottom: 40px;
+}
+.topic-item {
+  background: var(--white); border-radius: 10px; padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-left: 4px solid var(--green-light);
+  font-size: 0.9rem; font-weight: 500; color: var(--text-dark);
+}
+.topic-item svg { flex-shrink: 0; }
+
+/* ── CONCEPT CARDS ───────────────────────────────── */
+.concept-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 28px 32px; margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.concept-card h3 {
+  font-size: 1.15rem; font-weight: 700; color: var(--green-dark);
+  margin-bottom: 12px; padding-bottom: 10px;
+  border-bottom: 2px solid var(--green-pale);
+  display: flex; align-items: center; gap: 8px;
+}
+.concept-card p { font-size: 0.95rem; line-height: 1.7; color: var(--text-mid); margin-bottom: 10px; }
+.concept-card p:last-child { margin-bottom: 0; }
+
+/* ── FORMULA BOX ─────────────────────────────────── */
+.formula {
+  background: var(--green-pale);
+  border: 1.5px solid var(--green-mid);
+  border-radius: 8px; padding: 16px 22px;
+  font-size: 1.05rem; font-family: 'Courier New', monospace;
+  color: var(--green-dark); margin: 14px 0;
+  text-align: center;
+}
+.formula-label {
+  font-family: 'Inter', sans-serif; font-size: 0.78rem;
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--green-primary); margin-bottom: 4px;
+}
+
+/* ── EXAMPLE BOX ─────────────────────────────────── */
+.example-box {
+  background: var(--accent-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px; padding: 16px 20px; margin: 14px 0;
+}
+.example-box .ex-label {
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+}
+.example-box p, .example-box li {
+  font-size: 0.93rem; line-height: 1.65; color: #5d4037;
+}
+.example-box ol, .example-box ul { padding-left: 20px; }
+.example-box li { margin-bottom: 4px; }
+
+/* ── TABLE ───────────────────────────────────────── */
+.table-wrap { overflow-x: auto; margin: 16px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th {
+  background: var(--green-primary); color: #fff;
+  padding: 10px 14px; text-align: left; font-weight: 600;
+}
+td { padding: 9px 14px; border-bottom: 1px solid var(--green-mid); }
+tr:nth-child(even) td { background: var(--green-pale); }
+td code { font-family: 'Courier New', monospace; font-size: 0.92em; color: var(--green-dark); }
+
+/* ── SVG GRAPHS ──────────────────────────────────── */
+.graph-wrap {
+  background: var(--white); border-radius: var(--radius);
+  padding: 24px; box-shadow: var(--shadow); margin: 20px 0;
+  overflow: hidden;
+}
+.graph-wrap h4 {
+  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+  text-align: center;
+}
+.graph-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width:680px){ .graph-grid { grid-template-columns: 1fr; } }
+
+/* ── ALERT NOTE ──────────────────────────────────── */
+.note {
+  background: #e3f2fd; border-left: 4px solid #1976d2;
+  border-radius: 8px; padding: 14px 18px; margin: 14px 0;
+  font-size: 0.9rem; color: #0d47a1; line-height: 1.6;
+}
+.note strong { font-weight: 700; }
+
+/* ── STEPS ───────────────────────────────────────── */
+.steps { list-style: none; padding: 0; margin: 14px 0; }
+.steps li {
+  display: flex; gap: 14px; align-items: flex-start;
+  margin-bottom: 12px; font-size: 0.93rem; line-height: 1.6; color: var(--text-mid);
+}
+.step-num {
+  width: 26px; height: 26px; flex-shrink: 0;
+  background: var(--green-primary); color: #fff;
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 0.78rem; font-weight: 700;
+  margin-top: 1px;
+}
+
+/* ── BADGE ───────────────────────────────────────── */
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 700; margin-left: 8px;
+}
+.badge-green { background: var(--green-pale); color: var(--green-dark); }
+.badge-orange { background: #fff3e0; color: #e65100; }
+.badge-red { background: #fce4ec; color: #b71c1c; }
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer {
+  background: var(--green-dark); color: rgba(255,255,255,0.85);
+  text-align: center; padding: 32px 24px;
+  font-size: 0.85rem; line-height: 1.7;
+}
+footer strong { color: #fff; }
+footer a { color: #a5d6a7; text-decoration: none; }
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:640px){
+  .header-inner { padding: 36px 20px 32px; }
+  .unit-header { flex-direction: column; padding: 24px; }
+  .concept-card { padding: 20px; }
+  .tab-btn { padding: 14px 14px; font-size: 0.82rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-deco"></div>
+  <div class="header-inner">
+    <span class="header-badge">&#127979; IIS Gregorio Mendel &middot; Matematica</span>
+    <h1>Recupero del <span>Debito Formativo</span></h1>
+    <p class="header-sub">Guida completa per prepararsi all&rsquo;esame di settembre. Teoria, esempi svolti e grafici interattivi per i quattro moduli del programma.</p>
+    <div class="header-meta">
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Esame: Settembre 2025
+      </span>
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        4 Unit&agrave; Tematiche
+      </span>
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Studio individuale
+      </span>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab(0)">
+      <span class="tab-num">1</span> Ripasso
+    </button>
+    <button class="tab-btn" onclick="showTab(1)">
+      <span class="tab-num">2</span> La Derivata
+    </button>
+    <button class="tab-btn" onclick="showTab(2)">
+      <span class="tab-num">3</span> Studio delle Funzioni
+    </button>
+    <button class="tab-btn" onclick="showTab(3)">
+      <span class="tab-num">4</span> Calcolo Integrale
+    </button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ═══════════════════════════════════ TAB 1 ══ -->
+<div class="tab-panel active" id="panel-0">
+
+  <div class="unit-header">
+    <div class="unit-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <div>
+      <h2>Unit&agrave; 1 &mdash; Ripasso</h2>
+      <p>Funzioni, limiti, continuit&agrave;, asintoti e grafici ipotetici</p>
+    </div>
+  </div>
+
+  <div class="topics-grid">
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Definizione di funzione e limite</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Limiti immediati</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Limite destro e sinistro</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Forme indeterminate 0/0 e &infin;/&infin;</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Lettura grafico e limiti</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Funzione continua &amp; discontinuit&agrave;</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Funzioni a tratti</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Asintoti e grafico ipotetico</div>
+  </div>
+
+  <!-- LIMITI -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Definizione di Limite
+    </h3>
+    <p>Scrivere <strong>lim<sub>x&rarr;x&#8320;</sub> f(x) = L</strong> significa che f(x) si avvicina arbitrariamente ad <em>L</em> man mano che x si avvicina a x&#8320;, <em>senza necessariamente raggiungerlo</em>.</p>
+    <div class="formula">
+      <div class="formula-label">Limite sinistro / destro</div>
+      lim<sub>x&rarr;x&#8320;&sup1;</sub> f(x) &nbsp;=&nbsp; L&#8331; &nbsp;&nbsp;|&nbsp;&nbsp; lim<sub>x&rarr;x&#8320;&spades;</sub> f(x) &nbsp;=&nbsp; L&#8330;
+    </div>
+    <p>Il limite esiste (ed &egrave; unico) <strong>se e solo se</strong> limite sinistro = limite destro.</p>
+
+    <div class="example-box">
+      <div class="ex-label">&#9998; Esempio &mdash; limite immediato</div>
+      <p>lim<sub>x&rarr;3</sub> (x&sup2; &minus; 9) / (x &minus; 3)</p>
+      <ol>
+        <li>Sostituendo x = 3 si ottiene <strong>0/0</strong> &rarr; forma indeterminata</li>
+        <li>Fattorizziamo: (x&sup2;&minus;9) = (x&minus;3)(x+3)</li>
+        <li>Semplifichiamo: lim<sub>x&rarr;3</sub> (x+3) = <strong>6</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- CONTINUITÀ -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+      Continuit&agrave; e Discontinuit&agrave;
+    </h3>
+    <p>Una funzione &egrave; <strong>continua in x&#8320;</strong> se sono verificate contemporaneamente tre condizioni:</p>
+    <ul class="steps">
+      <li><span class="step-num">1</span>f(x&#8320;) &egrave; definita</li>
+      <li><span class="step-num">2</span>Esiste finito lim<sub>x&rarr;x&#8320;</sub> f(x)</li>
+      <li><span class="step-num">3</span>lim<sub>x&rarr;x&#8320;</sub> f(x) = f(x&#8320;)</li>
+    </ul>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Tipo</th><th>Caratteristica</th><th>Esempio tipico</th></tr>
+        <tr><td><span class="badge badge-green">1&ordf; specie</span></td><td>Salto: L&#8331; &ne; L&#8330; entrambi finiti</td><td>Funzione a tratti</td></tr>
+        <tr><td><span class="badge badge-orange">2&ordf; specie</span></td><td>Almeno un limite &egrave; infinito o non esiste</td><td>Asintoto verticale</td></tr>
+        <tr><td><span class="badge badge-red">3&ordf; specie</span></td><td>Il limite esiste ma &ne; f(x&#8320;)</td><td>Punto isolato</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ASINTOTI -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      Asintoti &mdash; Calcolo
+    </h3>
+    <div class="graph-grid">
+      <div>
+        <div class="formula-label">Asintoto Verticale</div>
+        <div class="formula">x = x&#8320; se lim<sub>x&rarr;x&#8320;</sub> f(x) = &plusmn;&infin;</div>
+        <p style="font-size:0.9rem;color:#555;margin-top:8px">Si cerca nei punti che annullano il denominatore.</p>
+      </div>
+      <div>
+        <div class="formula-label">Asintoto Orizzontale</div>
+        <div class="formula">y = L se lim<sub>x&rarr;&plusmn;&infin;</sub> f(x) = L</div>
+        <p style="font-size:0.9rem;color:#555;margin-top:8px">Si calcola il limite per x &rarr; +&infin; e per x &rarr; &minus;&infin;.</p>
+      </div>
+    </div>
+    <div class="example-box" style="margin-top:16px">
+      <div class="ex-label">&#9998; Esempio &mdash; f(x) = (2x+1)/(x&minus;3)</div>
+      <p><strong>Asintoto verticale:</strong> x&minus;3=0 &rarr; x = 3</p>
+      <p><strong>Asintoto orizzontale:</strong> lim<sub>x&rarr;&infin;</sub> (2x+1)/(x&minus;3) = 2 &rarr; y = 2</p>
+    </div>
+  </div>
+
+  <!-- GRAFICO ASINTOTO SVG -->
+  <div class="graph-wrap">
+    <h4>&#128202; Grafico con asintoti &mdash; f(x) = (2x+1)/(x&minus;3)</h4>
+    <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto">
+      <!-- griglia -->
+      <defs>
+        <marker id="ah1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#aaa"/>
+        </marker>
+      </defs>
+      <rect width="480" height="300" fill="#fafafa"/>
+      <!-- assi -->
+      <line x1="30" y1="150" x2="460" y2="150" stroke="#aaa" stroke-width="1.5" marker-end="url(#ah1)"/>
+      <line x1="240" y1="20" x2="240" y2="285" stroke="#aaa" stroke-width="1.5" marker-end="url(#ah1)"/>
+      <!-- asintoto verticale x=3 => pixel ~300 (scala: centro=240, 1unit=30px) -->
+      <line x1="330" y1="20" x2="330" y2="285" stroke="#e53935" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="335" y="35" fill="#e53935" font-size="12" font-family="monospace">x = 3</text>
+      <!-- asintoto orizzontale y=2 => y_pixel = 150 - 2*30 = 90 -->
+      <line x1="30" y1="90" x2="460" y2="90" stroke="#1976d2" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="35" y="84" fill="#1976d2" font-size="12" font-family="monospace">y = 2</text>
+      <!-- curva ramo sinistro: x da -6 a 2.5 -->
+      <polyline fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linejoin="round"
+        points="
+          30,139
+          60,140
+          90,141
+          120,142
+          150,143
+          180,145
+          210,148
+          225,150
+          240,153
+          255,158
+          268,165
+          278,175
+          288,195
+          296,220
+          302,248
+          306,275
+        "/>
+      <!-- curva ramo destro: x da 3.5 a 10 -->
+      <polyline fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linejoin="round"
+        points="
+          354,10
+          360,28
+          366,48
+          375,72
+          385,90
+          395,100
+          410,107
+          425,111
+          440,113
+          455,115
+        "/>
+      <!-- etichette assi -->
+      <text x="455" y="165" fill="#888" font-size="11" font-family="sans-serif">x</text>
+      <text x="244" y="18" fill="#888" font-size="11" font-family="sans-serif">y</text>
+      <!-- origine -->
+      <text x="244" y="163" fill="#888" font-size="10" font-family="sans-serif">O</text>
+    </svg>
+  </div>
+
+</div><!-- end panel-0 -->
+
+<!-- ═══════════════════════════════════ TAB 2 ══ -->
+<div class="tab-panel" id="panel-1">
+
+  <div class="unit-header">
+    <div class="unit-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M3 20 Q8 4 12 12 Q16 20 21 4"/></svg>
+    </div>
+    <div>
+      <h2>Unit&agrave; 2 &mdash; La Derivata</h2>
+      <p>Rapporto incrementale, regole di derivazione, retta tangente</p>
+    </div>
+  </div>
+
+  <div class="topics-grid">
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Rapporto incrementale</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Definizione di derivata</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Regole di derivazione</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Derivate funzioni elementari</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Funzioni composte</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Derivate di ordine superiore</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Retta tangente</div>
+  </div>
+
+  <!-- RAPPORTO INCREMENTALE -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M3 17L9 11L13 15L21 7"/></svg>
+      Rapporto Incrementale e Derivata
+    </h3>
+    <p>Il <strong>rapporto incrementale</strong> di f in x&#8320; rappresenta geometricamente il <em>coefficiente angolare della secante</em> che passa per (x&#8320;, f(x&#8320;)) e (x&#8320;+h, f(x&#8320;+h)).</p>
+    <div class="formula">
+      <div class="formula-label">Rapporto incrementale</div>
+      &Delta;y / &Delta;x &nbsp;=&nbsp; [f(x&#8320; + h) &minus; f(x&#8320;)] / h
+    </div>
+    <p>Quando <strong>h &rarr; 0</strong>, la secante diventa la <em>tangente</em> al grafico in x&#8320; e si ottiene la <strong>derivata</strong>:</p>
+    <div class="formula">
+      <div class="formula-label">Definizione di Derivata</div>
+      f &prime;(x&#8320;) &nbsp;=&nbsp; lim<sub>h&rarr;0</sub> [f(x&#8320; + h) &minus; f(x&#8320;)] / h
+    </div>
+
+    <!-- SVG rapporto incrementale -->
+    <div class="graph-wrap" style="margin-top:20px">
+      <h4>&#128202; Dal rapporto incrementale alla derivata</h4>
+      <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto">
+        <rect width="480" height="280" fill="#fafafa"/>
+        <defs>
+          <marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#aaa"/></marker>
+        </defs>
+        <line x1="30" y1="240" x2="460" y2="240" stroke="#bbb" stroke-width="1.5" marker-end="url(#ah2)"/>
+        <line x1="60" y1="20" x2="60" y2="255" stroke="#bbb" stroke-width="1.5" marker-end="url(#ah2)"/>
+        <!-- parabola y=x^2 ridotta: centro (60,240) scala x=1->40px, y=1->20px -->
+        <!-- punti: x=0..9 => pixel_x=60+40*x, y=240-20*x^2 -->
+        <polyline fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linejoin="round"
+          points="60,240 100,236 140,224 180,204 220,176 260,140 300,96 340,44"/>
+        <!-- punto x0 = 2 => px=140, py=224 -->
+        <circle cx="140" cy="224" r="5" fill="#2e7d32"/>
+        <text x="130" y="240" fill="#2e7d32" font-size="11" font-family="sans-serif">x&#8320;</text>
+        <!-- punto x0+h = 5 => px=260, py=140 -->
+        <circle cx="260" cy="140" r="5" fill="#e53935"/>
+        <text x="255" y="130" fill="#e53935" font-size="11" font-family="sans-serif">x&#8320;+h</text>
+        <!-- secante in rosso tratteggiato -->
+        <line x1="80" y1="263" x2="340" y2="90" stroke="#e53935" stroke-width="1.8" stroke-dasharray="7,4"/>
+        <!-- tangente in blu -->
+        <!-- tangente in x0=2: f'=2*2=4 => coeff 4*40/20=8 px per px -->
+        <!-- y=224 + 4*(x-140)*20/40 => semplificato: y=224+(x-140)*0.5 -->
+        <line x1="40" y1="244" x2="300" y2="114" stroke="#1976d2" stroke-width="2.2"/>
+        <!-- etichette -->
+        <text x="200" y="265" fill="#e53935" font-size="11" font-family="sans-serif">secante (h grande)</text>
+        <text x="305" y="100" fill="#1976d2" font-size="11" font-family="sans-serif">tangente (h&rarr;0)</text>
+        <!-- delta x e delta y -->
+        <line x1="140" y1="224" x2="260" y2="224" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="260" y1="224" x2="260" y2="140" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="190" y="238" fill="#888" font-size="10" font-family="sans-serif">&Delta;x = h</text>
+        <text x="264" y="185" fill="#888" font-size="10" font-family="sans-serif">&Delta;y</text>
+        <text x="455" y="250" fill="#aaa" font-size="11" font-family="sans-serif">x</text>
+        <text x="64" y="18" fill="#aaa" font-size="11" font-family="sans-serif">y</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- TABELLA DERIVATE -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      Derivate delle Funzioni Elementari
+    </h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Funzione f(x)</th><th>Derivata f &prime;(x)</th><th>Nota</th></tr>
+        <tr><td><code>k</code> (costante)</td><td><code>0</code></td><td>Una costante non varia</td></tr>
+        <tr><td><code>x</code></td><td><code>1</code></td><td>&mdash;</td></tr>
+        <tr><td><code>x<sup>n</sup></code></td><td><code>n&middot;x<sup>n&minus;1</sup></code></td><td>Regola della potenza</td></tr>
+        <tr><td><code>e<sup>x</sup></code></td><td><code>e<sup>x</sup></code></td><td>Si deriva uguale!</td></tr>
+        <tr><td><code>ln x</code></td><td><code>1/x</code></td><td>x &gt; 0</td></tr>
+        <tr><td><code>sin x</code></td><td><code>cos x</code></td><td>&mdash;</td></tr>
+        <tr><td><code>cos x</code></td><td><code>&minus;sin x</code></td><td>Attenzione al &minus;</td></tr>
+      </table>
+    </div>
+
+    <div class="graph-grid" style="margin-top:20px">
+      <div>
+        <div class="formula-label">Somma / Differenza</div>
+        <div class="formula">(f &plusmn; g)&prime; = f &prime; &plusmn; g &prime;</div>
+      </div>
+      <div>
+        <div class="formula-label">Prodotto</div>
+        <div class="formula">(f &middot; g)&prime; = f &prime;g + fg &prime;</div>
+      </div>
+      <div>
+        <div class="formula-label">Quoziente</div>
+        <div class="formula">(f/g)&prime; = (f &prime;g &minus; fg &prime;) / g&sup2;</div>
+      </div>
+      <div>
+        <div class="formula-label">Funzione Composta</div>
+        <div class="formula">[f(g(x))]&prime; = f &prime;(g(x)) &middot; g &prime;(x)</div>
+      </div>
+    </div>
+
+    <div class="example-box" style="margin-top:16px">
+      <div class="ex-label">&#9998; Esempio &mdash; Derivata di f(x) = x&sup3; &minus; 3x&sup2; + 2</div>
+      <ol>
+        <li>D[x&sup3;] = 3x&sup2;</li>
+        <li>D[&minus;3x&sup2;] = &minus;6x</li>
+        <li>D[2] = 0</li>
+        <li>f &prime;(x) = <strong>3x&sup2; &minus; 6x</strong></li>
+      </ol>
+    </div>
+
+    <div class="example-box" style="margin-top:10px">
+      <div class="ex-label">&#9998; Esempio &mdash; Funzione composta: f(x) = e<sup>x&sup2;</sup></div>
+      <ol>
+        <li>Funzione esterna: e<sup>u</sup> &rarr; derivata = e<sup>u</sup></li>
+        <li>Funzione interna: u = x&sup2; &rarr; derivata = 2x</li>
+        <li>f &prime;(x) = e<sup>x&sup2;</sup> &middot; 2x = <strong>2x e<sup>x&sup2;</sup></strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- RETTA TANGENTE -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><line x1="5" y1="19" x2="19" y2="5"/><circle cx="12" cy="12" r="3"/></svg>
+      Equazione della Retta Tangente
+    </h3>
+    <div class="formula">
+      <div class="formula-label">Retta tangente in x&#8320;</div>
+      y &minus; f(x&#8320;) &nbsp;=&nbsp; f &prime;(x&#8320;) &middot; (x &minus; x&#8320;)
+    </div>
+    <div class="example-box">
+      <div class="ex-label">&#9998; Esempio &mdash; f(x) = x&sup2;, retta tangente in x&#8320; = 2</div>
+      <ol>
+        <li>f(2) = 4 &rarr; punto di tangenza: (2, 4)</li>
+        <li>f &prime;(x) = 2x &rarr; f &prime;(2) = 4 (coeff. angolare)</li>
+        <li>y &minus; 4 = 4(x &minus; 2) &rarr; <strong>y = 4x &minus; 4</strong></li>
+      </ol>
+    </div>
+  </div>
+
+</div><!-- end panel-1 -->
+
+<!-- ═══════════════════════════════════ TAB 3 ══ -->
+<div class="tab-panel" id="panel-2">
+
+  <div class="unit-header">
+    <div class="unit-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 20 L6 10 L10 15 L14 5 L18 12 L22 8"/><circle cx="6" cy="10" r="2" fill="#fff" stroke="none"/><circle cx="14" cy="5" r="2" fill="#fff" stroke="none"/></svg>
+    </div>
+    <div>
+      <h2>Unit&agrave; 3 &mdash; Studio delle Funzioni</h2>
+      <p>Dominio, segno, derivate, massimi, minimi, flessi, grafico completo</p>
+    </div>
+  </div>
+
+  <div class="topics-grid">
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Dominio, parit&agrave;, segno</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Intersezioni con gli assi</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Limiti agli estremi del dominio</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Massimi e minimi relativi/assoluti</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Flessi e concavit&agrave;</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Funzioni crescenti e decrescenti</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Studio completo razionali/irrazionali</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Punti di non derivabilit&agrave;</div>
+  </div>
+
+  <!-- SCHEMA STUDIO -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Schema Completo di Studio di una Funzione
+    </h3>
+    <ul class="steps">
+      <li><span class="step-num">1</span><strong>Dominio:</strong> trova i valori di x per cui f(x) &egrave; definita (no &divide;0, no &radic; negativi, no ln&le;0)</li>
+      <li><span class="step-num">2</span><strong>Simmetrie:</strong> f(&minus;x)=f(x) &rarr; pari; f(&minus;x)=&minus;f(x) &rarr; dispari</li>
+      <li><span class="step-num">3</span><strong>Intersezioni:</strong> con asse x (f(x)=0) e con asse y (f(0))</li>
+      <li><span class="step-num">4</span><strong>Segno:</strong> studia quando f(x) &gt; 0 e quando f(x) &lt; 0</li>
+      <li><span class="step-num">5</span><strong>Limiti agli estremi:</strong> calcola lim agli estremi del dominio, individua asintoti</li>
+      <li><span class="step-num">6</span><strong>Derivata prima:</strong> calcola f&prime;(x), studia il segno &rarr; crescenza/decrescenza, max e min</li>
+      <li><span class="step-num">7</span><strong>Derivata seconda:</strong> calcola f&prime;&prime;(x), studia il segno &rarr; concavit&agrave; e flessi</li>
+      <li><span class="step-num">8</span><strong>Grafico:</strong> raccogli tutte le informazioni e traccia la curva</li>
+    </ul>
+  </div>
+
+  <!-- MASSIMI E MINIMI -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Massimi, Minimi e Flessi
+    </h3>
+    <div class="graph-grid">
+      <div>
+        <div class="formula-label">Condizione necessaria</div>
+        <div class="formula">f &prime;(x&#8320;) = 0</div>
+        <p style="font-size:0.88rem;color:#555;margin-top:8px">I punti critici si trovano annullando f&prime;. Poi si studia il segno di f&prime; intorno al punto.</p>
+      </div>
+      <div>
+        <div class="formula-label">Criterio della derivata seconda</div>
+        <div class="formula">f &prime;&prime;(x&#8320;) &lt; 0 &rarr; MAX &nbsp;|&nbsp; f &prime;&prime;(x&#8320;) &gt; 0 &rarr; MIN</div>
+        <p style="font-size:0.88rem;color:#555;margin-top:8px">Se f&prime;&prime;(x&#8320;)=0 non si conclude: occorre analizzare il segno di f&prime;&prime; per trovare i flessi.</p>
+      </div>
+    </div>
+
+    <!-- SVG max/min/flesso -->
+    <div class="graph-wrap" style="margin-top:20px">
+      <h4>&#128202; Grafico completo &mdash; f(x) = x&sup3; &minus; 3x</h4>
+      <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto">
+        <rect width="480" height="300" fill="#fafafa"/>
+        <defs>
+          <marker id="ah3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#aaa"/></marker>
+        </defs>
+        <!-- assi -->
+        <line x1="30" y1="150" x2="460" y2="150" stroke="#bbb" stroke-width="1.5" marker-end="url(#ah3)"/>
+        <line x1="240" y1="20" x2="240" y2="280" stroke="#bbb" stroke-width="1.5" marker-end="url(#ah3)"/>
+        <!-- tacche asse x: scala 1unit=60px, centro 240 -->
+        <line x1="180" y1="145" x2="180" y2="155" stroke="#bbb" stroke-width="1"/><text x="175" y="168" font-size="10" fill="#aaa" font-family="sans-serif">&minus;1</text>
+        <line x1="300" y1="145" x2="300" y2="155" stroke="#bbb" stroke-width="1"/><text x="297" y="168" font-size="10" fill="#aaa" font-family="sans-serif">1</text>
+        <line x1="360" y1="145" x2="360" y2="155" stroke="#bbb" stroke-width="1"/><text x="357" y="168" font-size="10" fill="#aaa" font-family="sans-serif">2</text>
+        <line x1="120" y1="145" x2="120" y2="155" stroke="#bbb" stroke-width="1"/><text x="115" y="168" font-size="10" fill="#aaa" font-family="sans-serif">&minus;2</text>
+        <!-- curva x^3-3x: scala y=1unit=40px -->
+        <!-- x in [-3..3], pixel_x=240+60*x, pixel_y=150-40*(x^3-3x) -->
+        <polyline fill="none" stroke="#2e7d32" stroke-width="2.8" stroke-linejoin="round"
+          points="
+            60,230
+            72,222
+            84,210
+            96,197
+            108,181
+            120,162
+            132,142
+            144,120
+            156,100
+            168,82
+            180,70
+            192,64
+            204,62
+            216,62
+            228,68
+            240,80
+            252,95
+            264,110
+            276,124
+            288,135
+            300,143
+            312,150
+            324,158
+            336,168
+            348,182
+            360,198
+            372,218
+            384,238
+            396,256
+          "/>
+        <!-- MAX locale: x=-1, f(-1)=2 => px=(240-60)=180, py=150-40*2=70 -->
+        <circle cx="180" cy="70" r="6" fill="#e53935" stroke="#fff" stroke-width="2"/>
+        <text x="185" y="62" fill="#e53935" font-size="11" font-family="sans-serif" font-weight="bold">MAX (&minus;1, 2)</text>
+        <!-- MIN locale: x=1, f(1)=-2 => px=300, py=150+80=230 -->
+        <circle cx="300" cy="230" r="6" fill="#1976d2" stroke="#fff" stroke-width="2"/>
+        <text x="305" y="242" fill="#1976d2" font-size="11" font-family="sans-serif" font-weight="bold">MIN (1, &minus;2)</text>
+        <!-- Flesso: x=0, f(0)=0 => px=240, py=150 -->
+        <circle cx="240" cy="150" r="5" fill="#ff8f00" stroke="#fff" stroke-width="2"/>
+        <text x="245" y="144" fill="#ff8f00" font-size="11" font-family="sans-serif" font-weight="bold">FLESSO (0,0)</text>
+        <!-- legenda crescenza -->
+        <text x="50" y="250" fill="#aaa" font-size="10" font-family="sans-serif">&#8679; crescente</text>
+        <text x="200" y="200" fill="#aaa" font-size="10" font-family="sans-serif">&#8681; decrescente</text>
+        <text x="370" y="240" fill="#aaa" font-size="10" font-family="sans-serif">&#8679; crescente</text>
+        <text x="455" y="162" fill="#aaa" font-size="11" font-family="sans-serif">x</text>
+        <text x="244" y="18" fill="#aaa" font-size="11" font-family="sans-serif">y</text>
+      </svg>
+    </div>
+
+    <div class="note"><strong>Tabella di marcia:</strong> f&prime;(x) = 3x&sup2;&minus;3 = 3(x&minus;1)(x+1). Si annulla in x=&minus;1 e x=1. Studia il segno di f&prime; e individua MAX in x=&minus;1 e MIN in x=1. f&prime;&prime;(x)=6x: flesso in x=0.</div>
+  </div>
+
+  <!-- PUNTI DI NON DERIVABILITÀ -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Punti di Non Derivabilit&agrave;
+    </h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Tipo</th><th>Caratteristica</th><th>Aspetto grafico</th></tr>
+        <tr><td><span class="badge badge-orange">Punto angoloso</span></td><td>f&prime;<sup>&minus;</sup> &ne; f&prime;<sup>+</sup> entrambi finiti</td><td>Spigolo netto</td></tr>
+        <tr><td><span class="badge badge-red">Cuspide</span></td><td>f&prime;<sup>&minus;</sup> = +&infin;, f&prime;<sup>+</sup> = &minus;&infin; (o viceversa)</td><td>Punta acuta</td></tr>
+        <tr><td><span class="badge badge-green">Flesso a tang. vert.</span></td><td>f&prime;<sup>&minus;</sup> = f&prime;<sup>+</sup> = &plusmn;&infin;</td><td>Curva verticale</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- end panel-2 -->
+
+<!-- ═══════════════════════════════════ TAB 4 ══ -->
+<div class="tab-panel" id="panel-3">
+
+  <div class="unit-header">
+    <div class="unit-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M3 20 L7 10 Q12 2 17 10 L21 20"/><path d="M3 20 L21 20" stroke-width="1.5" stroke-dasharray="3,3"/></svg>
+    </div>
+    <div>
+      <h2>Unit&agrave; 4 &mdash; Calcolo Integrale</h2>
+      <p>Integrale indefinito e definito, legame con la derivata, area e valor medio</p>
+    </div>
+  </div>
+
+  <div class="topics-grid">
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Integrale indefinito e definito</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Teorema fondamentale del calcolo</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Legame integrale &harr; derivata</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Calcolo di aree</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Propriet&agrave; dell&rsquo;integrale</div>
+    <div class="topic-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Valor medio</div>
+  </div>
+
+  <!-- INTEGRALE INDEFINITO -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M12 2 Q6 6 6 12 Q6 18 12 22 Q18 18 18 12 Q18 6 12 2"/></svg>
+      Integrale Indefinito
+    </h3>
+    <p>L&rsquo;<strong>integrale indefinito</strong> di f(x) &egrave; la famiglia di tutte le funzioni F(x) la cui derivata &egrave; f(x). La costante C rappresenta le infinite primitive.</p>
+    <div class="formula">
+      <div class="formula-label">Definizione</div>
+      &int; f(x) dx &nbsp;=&nbsp; F(x) + C &nbsp;&nbsp; dove &nbsp;&nbsp; F&prime;(x) = f(x)
+    </div>
+    <div class="note"><strong>Analogia:</strong> la derivazione e l&rsquo;integrazione sono operazioni inverse, come moltiplicazione e divisione. Derivare &quot;distrugge&quot; informazione (la costante C), integrare la &quot;recupera&quot; parzialmente.</div>
+
+    <div class="table-wrap" style="margin-top:16px">
+      <table>
+        <tr><th>Integrale</th><th>Risultato</th><th>Condizioni</th></tr>
+        <tr><td><code>&int; k dx</code></td><td><code>kx + C</code></td><td>&mdash;</td></tr>
+        <tr><td><code>&int; x<sup>n</sup> dx</code></td><td><code>x<sup>n+1</sup>/(n+1) + C</code></td><td>n &ne; &minus;1</td></tr>
+        <tr><td><code>&int; 1/x dx</code></td><td><code>ln|x| + C</code></td><td>x &ne; 0</td></tr>
+        <tr><td><code>&int; e<sup>x</sup> dx</code></td><td><code>e<sup>x</sup> + C</code></td><td>&mdash;</td></tr>
+        <tr><td><code>&int; sin x dx</code></td><td><code>&minus;cos x + C</code></td><td>&mdash;</td></tr>
+        <tr><td><code>&int; cos x dx</code></td><td><code>sin x + C</code></td><td>&mdash;</td></tr>
+      </table>
+    </div>
+
+    <div class="example-box">
+      <div class="ex-label">&#9998; Esempio &mdash; &int; (3x&sup2; + 2x &minus; 5) dx</div>
+      <ol>
+        <li>&int; 3x&sup2; dx = 3 &middot; x&sup3;/3 = x&sup3;</li>
+        <li>&int; 2x dx = 2 &middot; x&sup2;/2 = x&sup2;</li>
+        <li>&int; &minus;5 dx = &minus;5x</li>
+        <li>Risultato: <strong>x&sup3; + x&sup2; &minus; 5x + C</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- INTEGRALE DEFINITO -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9 L9 15 L15 15" stroke-width="2"/></svg>
+      Integrale Definito e Teorema Fondamentale
+    </h3>
+    <p>L&rsquo;<strong>integrale definito</strong> di f tra a e b &egrave; un numero reale che rappresenta l&rsquo;area con segno della regione compresa tra il grafico di f e l&rsquo;asse x nell&rsquo;intervallo [a, b].</p>
+    <div class="formula">
+      <div class="formula-label">Teorema fondamentale del calcolo integrale</div>
+      &int;<sub>a</sub><sup>b</sup> f(x) dx &nbsp;=&nbsp; F(b) &minus; F(a) &nbsp;=&nbsp; [F(x)]<sub>a</sub><sup>b</sup>
+    </div>
+
+    <!-- SVG area sotto curva -->
+    <div class="graph-wrap" style="margin-top:16px">
+      <h4>&#128202; Area tra f(x) = x&sup2; e l&rsquo;asse x in [0, 2]</h4>
+      <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto">
+        <rect width="480" height="280" fill="#fafafa"/>
+        <defs>
+          <marker id="ah4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#aaa"/></marker>
+        </defs>
+        <line x1="40" y1="240" x2="450" y2="240" stroke="#bbb" stroke-width="1.5" marker-end="url(#ah4)"/>
+        <line x1="80" y1="20" x2="80" y2="255" stroke="#bbb" stroke-width="1.5" marker-end="url(#ah4)"/>
+        <!-- parabola x^2: centro (80,240), scala x=1unit=100px, y=1unit=30px -->
+        <!-- pixel_x=80+100*x, pixel_y=240-30*x^2 -->
+        <!-- x in [0..2.8] -->
+        <polyline fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linejoin="round"
+          points="80,240 90,237 100,231 110,222 120,210 130,195 140,178 150,158 160,136 170,111 180,84 190,54 200,22"/>
+        <!-- area colorata sotto curva da x=0 (px=80) a x=2 (px=280) -->
+        <path d="M80,240 L90,237 L100,231 L110,222 L120,210 L130,195 L140,178 L150,158 L160,136 L170,111 L180,84 L190,54 L200,22 L200,240 Z"
+              fill="rgba(46,125,50,0.18)" stroke="none"/>
+        <!-- linee verticali a=0 e b=2 -->
+        <line x1="80" y1="240" x2="80" y2="240" stroke="#e53935" stroke-width="2"/>
+        <line x1="280" y1="22" x2="280" y2="240" stroke="#e53935" stroke-width="1.8" stroke-dasharray="5,4"/>
+        <!-- tacche -->
+        <text x="76" y="258" fill="#888" font-size="11" font-family="sans-serif">a=0</text>
+        <text x="272" y="258" fill="#e53935" font-size="11" font-family="sans-serif">b=2</text>
+        <!-- label area -->
+        <text x="120" y="200" fill="#2e7d32" font-size="13" font-family="sans-serif" font-weight="bold">Area = 8/3</text>
+        <text x="440" y="250" fill="#aaa" font-size="11" font-family="sans-serif">x</text>
+        <text x="84" y="18" fill="#aaa" font-size="11" font-family="sans-serif">y</text>
+        <!-- calcolo mostrato -->
+        <text x="300" y="80" fill="#555" font-size="11" font-family="monospace">&int;&sup2;&#8320; x&sup2; dx</text>
+        <text x="300" y="98" fill="#555" font-size="11" font-family="monospace">= [x&sup3;/3]&sup2;&#8320;</text>
+        <text x="300" y="116" fill="#555" font-size="11" font-family="monospace">= 8/3 &minus; 0</text>
+        <text x="300" y="134" fill="#2e7d32" font-size="11" font-family="monospace" font-weight="bold">= 8/3 &asymp; 2.67</text>
+      </svg>
+    </div>
+
+    <div class="example-box" style="margin-top:12px">
+      <div class="ex-label">&#9998; Esempio passo-passo &mdash; &int;<sub>1</sub><sup>3</sup> (2x + 1) dx</div>
+      <ol>
+        <li>Calcola la primitiva: F(x) = x&sup2; + x</li>
+        <li>Applica il Teorema Fondamentale: F(3) &minus; F(1)</li>
+        <li>F(3) = 9 + 3 = 12 &nbsp;&nbsp; F(1) = 1 + 1 = 2</li>
+        <li>Risultato: <strong>12 &minus; 2 = 10</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- PROPRIETÀ E VALOR MEDIO -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      Propriet&agrave; dell&rsquo;Integrale Definito
+    </h3>
+    <div class="graph-grid">
+      <div>
+        <div class="formula-label">Linearit&agrave;</div>
+        <div class="formula">&int;<sub>a</sub><sup>b</sup> [f + g] dx = &int;f + &int;g</div>
+      </div>
+      <div>
+        <div class="formula-label">Inversione estremi</div>
+        <div class="formula">&int;<sub>a</sub><sup>b</sup> f dx = &minus;&int;<sub>b</sub><sup>a</sup> f dx</div>
+      </div>
+      <div>
+        <div class="formula-label">Additivit&agrave;</div>
+        <div class="formula">&int;<sub>a</sub><sup>b</sup>f = &int;<sub>a</sub><sup>c</sup>f + &int;<sub>c</sub><sup>b</sup>f</div>
+      </div>
+      <div>
+        <div class="formula-label">Valor Medio</div>
+        <div class="formula">f&#772; = (1/(b&minus;a)) &int;<sub>a</sub><sup>b</sup> f(x) dx</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:16px">
+      <strong>Valor Medio &mdash; Significato geometrico:</strong> il valor medio f&#772; &egrave; l&rsquo;altezza del rettangolo di base (b&minus;a) che ha la stessa area della regione sotto il grafico di f in [a,b].
+    </div>
+
+    <div class="example-box" style="margin-top:12px">
+      <div class="ex-label">&#9998; Valor medio di f(x) = x&sup2; in [0, 3]</div>
+      <p>f&#772; = 1/(3&minus;0) &middot; &int;<sub>0</sub><sup>3</sup> x&sup2; dx = 1/3 &middot; [x&sup3;/3]<sub>0</sub><sup>3</sup> = 1/3 &middot; 9 = <strong>3</strong></p>
+    </div>
+  </div>
+
+  <!-- LEGAME INTEGRALE-DERIVATA -->
+  <div class="concept-card">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      Il Legame Profondo tra Derivata e Integrale
+    </h3>
+    <p>Il Teorema Fondamentale del Calcolo rivela che <strong>derivazione e integrazione sono operazioni inverse</strong>. Se definiamo la funzione integrale:</p>
+    <div class="formula">G(x) = &int;<sub>a</sub><sup>x</sup> f(t) dt</div>
+    <p>allora <strong>G&prime;(x) = f(x)</strong>: derivando la funzione integrale si recupera esattamente f.</p>
+
+    <!-- schema visuale -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin:20px 0;padding:20px;background:var(--green-pale);border-radius:10px">
+      <div style="text-align:center">
+        <div style="font-size:1.2rem;font-weight:700;color:var(--green-dark)">F(x)</div>
+        <div style="font-size:0.82rem;color:#555">Primitiva</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <div style="font-size:0.78rem;color:#1976d2;font-weight:600">deriva &rarr;</div>
+        <div style="width:80px;height:2px;background:#1976d2"></div>
+        <div style="font-size:0.78rem;color:#e53935;font-weight:600">&larr; integra</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:1.2rem;font-weight:700;color:var(--green-dark)">f(x)</div>
+        <div style="font-size:0.82rem;color:#555">Funzione</div>
+      </div>
+    </div>
+    <p>Questo legame &egrave; una delle scoperte pi&ugrave; importanti della matematica (Newton &amp; Leibniz, XVII sec.) e permette di calcolare aree con facilit&agrave; senza sommare infiniti rettangolini.</p>
+  </div>
+
+</div><!-- end panel-3 -->
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Pagina realizzata dal Team Digitale dell&rsquo;IIS Gregorio Mendel di Villa Cortese (MI)</strong></p>
+  <p>a supporto della comunit&agrave; scolastica &mdash; Recupero Debiti Formativi &mdash; A.S. 2024/2025</p>
+  <p style="margin-top:8px;font-size:0.78rem;color:rgba(255,255,255,0.55)">&copy; 2025 IIS Gregorio Mendel &mdash; Via Europa, 2 &mdash; 20020 Villa Cortese (MI) &mdash; Tutti i diritti riservati</p>
+</footer>
+
+<script>
+function showTab(idx) {
+  document.querySelectorAll('.tab-panel').forEach((p, i) => {
+    p.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
